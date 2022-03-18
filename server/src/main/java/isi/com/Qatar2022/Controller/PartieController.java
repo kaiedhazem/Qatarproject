@@ -3,6 +3,7 @@ package isi.com.Qatar2022.Controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -17,14 +18,15 @@ import isi.com.Qatar2022.Services.IUserService;
 
 @RestController
 @CrossOrigin(origins="http://localhost:4200")
-@RequestMapping("/partie")
+@RequestMapping("/api/parties")
 public class PartieController {
 
 	
 	@Autowired
 	private IPartieService partieService;
-	 
-	@GetMapping("/parties")
+	
+	@GetMapping("/all")
+	@PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
 	public List<Partie> getAllParties()
 	{
 		List<Partie> liste = partieService.findAllParties();
@@ -32,6 +34,7 @@ public class PartieController {
 	}
 	
 	@PostMapping("/addpartie")
+	@PreAuthorize("hasRole('ADMIN')")
 	public Partie addPartie(@RequestBody Partie partie)
 	{
 		return partieService.addPartie(partie);

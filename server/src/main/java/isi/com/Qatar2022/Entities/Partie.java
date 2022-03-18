@@ -14,6 +14,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 @Entity
 public class Partie implements Serializable {
@@ -31,6 +32,8 @@ public class Partie implements Serializable {
 	private Stade stade;
 	@OneToMany(mappedBy = "partie")
 	private List<Billet> billets;
+	@OneToOne(mappedBy = "partie")
+    private CapaciteMatch capacite;
 	
 	
 	public Partie() {

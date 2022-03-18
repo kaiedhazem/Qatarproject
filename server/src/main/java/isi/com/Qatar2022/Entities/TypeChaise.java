@@ -11,6 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 @Entity
 public class TypeChaise implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -18,16 +19,18 @@ public class TypeChaise implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)  
 	private Long id;
 	private String nom_type;
-	private int capacite;
 	private double tarif;
-	@ManyToMany
-	@JoinTable(name="chaise_stades")
-	private List<Stade> stades;
-	public TypeChaise( String nom_type, int capacite, double tarif) {
+	@OneToMany(mappedBy = "type")
+	private List<ChaiseStade> chaises;
+	public TypeChaise() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+	public TypeChaise(String nom_type, double tarif, List<ChaiseStade> chaises) {
 		super();
 		this.nom_type = nom_type;
-		this.capacite = capacite;
 		this.tarif = tarif;
+		this.chaises = chaises;
 	}
 	public Long getId() {
 		return id;
@@ -41,21 +44,23 @@ public class TypeChaise implements Serializable {
 	public void setNom_type(String nom_type) {
 		this.nom_type = nom_type;
 	}
-	public int getCapacite() {
-		return capacite;
-	}
-	public void setCapacite(int capacite) {
-		this.capacite = capacite;
-	}
 	public double getTarif() {
 		return tarif;
 	}
 	public void setTarif(double tarif) {
 		this.tarif = tarif;
 	}
+	public List<ChaiseStade> getChaises() {
+		return chaises;
+	}
+	public void setChaises(List<ChaiseStade> chaises) {
+		this.chaises = chaises;
+	}
 	@Override
 	public String toString() {
-		return "TypeChaise [id=" + id + ", nom_type=" + nom_type + ", capacite=" + capacite + ", tarif=" + tarif + "]";
+		return "TypeChaise [id=" + id + ", nom_type=" + nom_type + ", tarif=" + tarif + ", chaises=" + chaises + "]";
 	}
+	
+	
 
 }
