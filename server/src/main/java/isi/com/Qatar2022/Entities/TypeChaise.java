@@ -20,17 +20,17 @@ public class TypeChaise implements Serializable {
 	private Long id;
 	private String nom_type;
 	private double tarif;
-	@OneToMany(mappedBy = "type")
-	private List<ChaiseStade> chaises;
+	//@OneToMany(mappedBy = "type")
+	//private List<ChaiseStade> chaises;
 	public TypeChaise() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public TypeChaise(String nom_type, double tarif, List<ChaiseStade> chaises) {
+	public TypeChaise(String nom_type, double tarif) {
 		super();
 		this.nom_type = nom_type;
 		this.tarif = tarif;
-		this.chaises = chaises;
+		//this.chaises = chaises;
 	}
 	public Long getId() {
 		return id;
@@ -50,15 +50,14 @@ public class TypeChaise implements Serializable {
 	public void setTarif(double tarif) {
 		this.tarif = tarif;
 	}
-	public List<ChaiseStade> getChaises() {
-		return chaises;
-	}
-	public void setChaises(List<ChaiseStade> chaises) {
-		this.chaises = chaises;
-	}
+
+	/*
+	 * public List<ChaiseStade> getChaises() { return chaises; } public void
+	 * setChaises(List<ChaiseStade> chaises) { this.chaises = chaises; }
+	 */
 	@Override
 	public String toString() {
-		return "TypeChaise [id=" + id + ", nom_type=" + nom_type + ", tarif=" + tarif + ", chaises=" + chaises + "]";
+		return "TypeChaise [id=" + id + ", nom_type=" + nom_type + ", tarif=" + tarif + "]";
 	}
 	
 	

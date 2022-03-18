@@ -13,6 +13,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.MapsId;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
@@ -28,8 +29,10 @@ public class Partie implements Serializable {
 	private String eq_visiteur;
 	private Date date_h;
 
-	@ManyToOne()
-	private Stade stade;
+	@ManyToOne
+	@MapsId("stadeId")
+	Stade stade;
+	
 	@OneToMany(mappedBy = "partie")
 	private List<Billet> billets;
 	@OneToOne(mappedBy = "partie")
@@ -40,20 +43,21 @@ public class Partie implements Serializable {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public Partie(String ref, String tour, String eq_local, String eq_visiteur, Date date_h) {
+	public Partie(String ref, String tour, String eq_local, String eq_visiteur, Date date_h, Stade stade) {
 		super();
 		this.ref = ref;
 		this.tour = tour;
 		this.eq_local = eq_local;
 		this.eq_visiteur = eq_visiteur;
 		this.date_h = date_h;
+		this.stade= stade;
 	}
-	/*public Stade getStade() {
+	public Stade getStade() {
 		return stade;
 	}
 	public void setStade(Stade stade) {
 		this.stade = stade;
-	}*/
+	}
 	public String getRef() {
 		return ref;
 	}

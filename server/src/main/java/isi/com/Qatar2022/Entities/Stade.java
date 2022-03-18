@@ -22,7 +22,7 @@ public class Stade implements Serializable {
 	private String nom;
     private int capacite_g;
   
-    @OneToMany(mappedBy="stade",cascade=CascadeType.ALL)
+    @OneToMany(mappedBy="stade")
 	private List<Partie> parties ;
     
     @OneToMany(mappedBy = "stade")
@@ -33,11 +33,11 @@ public class Stade implements Serializable {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Stade(String nom, int capacite_g, List<Partie> parties, List<ChaiseStade> chaises) {
+	public Stade(String nom, int capacite_g,List<ChaiseStade> chaises) {
 		super();
 		this.nom = nom;
 		this.capacite_g = capacite_g;
-		this.parties = parties;
+		//this.parties = parties;
 		this.chaises = chaises;
 	}
 
@@ -65,26 +65,22 @@ public class Stade implements Serializable {
 		this.capacite_g = capacite_g;
 	}
 
-	public List<Partie> getParties() {
-		return parties;
-	}
+//	public List<Partie> getParties() {
+//		return parties;
+//	}
+//
+//	public void setParties(List<Partie> parties) {
+//		this.parties = parties;
+//	}
 
-	public void setParties(List<Partie> parties) {
-		this.parties = parties;
-	}
-
-	public List<ChaiseStade> getChaises() {
-		return chaises;
-	}
-
-	public void setChaises(List<ChaiseStade> chaises) {
-		this.chaises = chaises;
-	}
+	 public List<ChaiseStade> getChaises() { return chaises; }
+	  
+	 public void setChaises(List<ChaiseStade> chaises) { this.chaises = chaises; }
+	 
 
 	@Override
 	public String toString() {
-		return "Stade [id=" + id + ", nom=" + nom + ", capacite_g=" + capacite_g + ", parties=" + parties + ", chaises="
-				+ chaises + "]";
+		return "Stade [id=" + id + ", nom=" + nom + ", capacite_g=" + capacite_g  + "]";
 	}
 	
 	

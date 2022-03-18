@@ -11,8 +11,13 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import isi.com.Qatar2022.Entities.ChaiseStade;
 import isi.com.Qatar2022.Entities.Partie;
+import isi.com.Qatar2022.Entities.Stade;
 import isi.com.Qatar2022.Entities.User;
+import isi.com.Qatar2022.Repository.CapaciteMatchRepository;
+import isi.com.Qatar2022.Repository.ChaiseStadeRepository;
+import isi.com.Qatar2022.Repository.StadeRepository;
 import isi.com.Qatar2022.Services.IPartieService;
 import isi.com.Qatar2022.Services.IUserService;
 
@@ -25,7 +30,16 @@ public class PartieController {
 	@Autowired
 	private IPartieService partieService;
 	
-	@GetMapping("/all")
+	@Autowired
+	private StadeRepository stadeRepo;
+	
+	@Autowired
+	private ChaiseStadeRepository chaises;
+	
+	@Autowired
+	private CapaciteMatchRepository capaciteMatch;
+	
+	@GetMapping("/allparties")
 	@PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
 	public List<Partie> getAllParties()
 	{
@@ -39,4 +53,21 @@ public class PartieController {
 	{
 		return partieService.addPartie(partie);
 	}
+	
+	@GetMapping("/allstades")
+	@PreAuthorize("hasRole('ADMIN')")
+	public List<Stade> getAllStades()
+	{
+		List<Stade> liste = stadeRepo.findAll();
+		return liste ;
+	}
+	
+	@GetMapping("/allchaises")
+	@PreAuthorize("hasRole('ADMIN')")
+	public List<ChaiseStade> getAllChaises()
+	{
+		List<ChaiseStade> liste = chaises.findAll();
+		return liste ;
+	}
+	
 }

@@ -28,10 +28,10 @@ public class ChaiseStade {
 		// TODO Auto-generated constructor stub
 	}
 
-	public ChaiseStade(Long capacite, Stade stade, TypeChaise type) {
+	public ChaiseStade(Long capacite, TypeChaise type) {
 		super();
 		this.capacite = capacite;
-		this.stade = stade;
+		//this.stade = stade;
 		this.type = type;
 	}
 
@@ -51,13 +51,11 @@ public class ChaiseStade {
 		this.capacite = capacite;
 	}
 
-	public Stade getStade() {
-		return stade;
-	}
-
-	public void setStade(Stade stade) {
-		this.stade = stade;
-	}
+	/*
+	 * public Stade getStade() { return stade; }
+	 * 
+	 * public void setStade(Stade stade) { this.stade = stade; }
+	 */
 
 	public TypeChaise getType() {
 		return type;
@@ -69,7 +67,7 @@ public class ChaiseStade {
 
 	@Override
 	public String toString() {
-		return "ChaiseStade [id=" + id + ", capacite=" + capacite + ", stade=" + stade + ", type=" + type + "]";
+		return "ChaiseStade [id=" + id + ", capacite=" + capacite + ", type=" + type + "]";
 	}
 	
 	
