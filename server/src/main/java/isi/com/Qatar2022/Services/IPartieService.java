@@ -7,6 +7,7 @@ import isi.com.Qatar2022.Entities.Partie;
 
 public interface IPartieService {
 
+	Partie findById(Long id);
 	Partie savePartie(Partie partie);
 	List<Partie> findAllParties();
 	void deletePartie(Long id);

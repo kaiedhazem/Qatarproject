@@ -22,7 +22,7 @@ public class Stade implements Serializable {
 	private String nom;
     private int capacite_g;
   
-    @OneToMany(mappedBy="stade")
+    @OneToMany(mappedBy="stade", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
 	private List<Partie> parties ;
     
     @OneToMany(mappedBy = "stade")

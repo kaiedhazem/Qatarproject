@@ -20,12 +20,27 @@ private double montant;
 private String type_chaise;
 private boolean repas_inclus;
 @ManyToOne
-@MapsId("partieId")
+@JoinColumn(name = "partieId", nullable = true)
 Partie partie;
 
 @ManyToOne
-@MapsId("userId")
+@JoinColumn(name = "userId", nullable = true)
 User spectateur;
+
+
+public Billet() {
+	super();
+	// TODO Auto-generated constructor stub
+}
+
+public Billet( int nb_place, String type_chaise, boolean repas_inclus, Partie partie, User spectateur) {
+	super();
+	this.nb_place = nb_place;
+	this.type_chaise = type_chaise;
+	this.repas_inclus = repas_inclus;
+	this.partie = partie;
+	this.spectateur = spectateur;
+}
 
 public Billet( String ref, int nb_place, double montant, String type_chaise, boolean repas_inclus) {
 	super();
@@ -72,6 +87,24 @@ public boolean isRepas_inclus() {
 public void setRepas_inclus(boolean repas_inclus) {
 	this.repas_inclus = repas_inclus;
 }
+
+
+public Partie getPartie() {
+	return partie;
+}
+
+public void setPartie(Partie partie) {
+	this.partie = partie;
+}
+
+public User getSpectateur() {
+	return spectateur;
+}
+
+public void setSpectateur(User spectateur) {
+	this.spectateur = spectateur;
+}
+
 @Override
 public String toString() {
 	return "Billet [id=" + id + ", ref=" + ref + ", nb_place=" + nb_place + ", montant=" + montant + ", type_chaise="

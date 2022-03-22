@@ -29,13 +29,21 @@ public class PartieService implements IPartieService{
 	@Override
 	public void deletePartie(Long id) {
 		// TODO Auto-generated method stub
-		partieRepo.deleteById(id);
+		Partie partie = partieRepo.findById(id).get();
+		
+		partieRepo.delete(partie);
 	}
 
 	@Override
 	public Partie addPartie(Partie partie) {
 		// TODO Auto-generated method stub
 		return partieRepo.save(partie);
+	}
+
+	@Override
+	public Partie findById(Long id) {
+		// TODO Auto-generated method stub
+		return partieRepo.findById(id).get();
 	}
 
 }

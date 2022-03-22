@@ -2,12 +2,6 @@ package isi.com.Qatar2022.Entities;
 
 import java.io.Serializable;
 import java.util.List;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
 import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.*;
@@ -115,12 +109,12 @@ import javax.validation.constraints.Size;
 		public void setCode_secret(Long code_secret) {
 			this.code_secret = code_secret;
 		}
-		public List<Billet> getBillets() {
+	/*	public List<Billet> getBillets() {
 			return billets;
 		}
 		public void setBillets(List<Billet> billets) {
 			this.billets = billets;
-		}
+		}*/
 	
 }
 

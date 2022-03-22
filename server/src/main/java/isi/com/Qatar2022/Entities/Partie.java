@@ -30,12 +30,12 @@ public class Partie implements Serializable {
 	private Date date_h;
 
 	@ManyToOne
-	@MapsId("stadeId")
+	@JoinColumn(name = "stadeId", nullable = true)
 	Stade stade;
 	
 	@OneToMany(mappedBy = "partie")
 	private List<Billet> billets;
-	@OneToOne(mappedBy = "partie")
+	@OneToOne(mappedBy = "partie", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
     private CapaciteMatch capacite;
 	
 	
@@ -88,6 +88,22 @@ public class Partie implements Serializable {
 	public void setDate_h(Date date_h) {
 		this.date_h = date_h;
 	}
+	
+	public Long getId() {
+		return id;
+	}
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	/*
+	 * public List<Billet> getBillets() { return billets; } public void
+	 * setBillets(List<Billet> billets) { this.billets = billets; }
+	 */
+	/*
+	 * public CapaciteMatch getCapacite() { return capacite; } public void
+	 * setCapacite(CapaciteMatch capacite) { this.capacite = capacite; }
+	 */
 	@Override
 	public String toString() {
 		return "Match [ref=" + ref + ", tour=" + tour + ", eq_local=" + eq_local + ", eq_visiteur=" + eq_visiteur
