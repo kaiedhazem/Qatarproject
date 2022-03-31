@@ -17,6 +17,8 @@ import javax.persistence.MapsId;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 @Entity
 public class Partie implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -27,6 +29,7 @@ public class Partie implements Serializable {
 	private String tour;
 	private String eq_local;
 	private String eq_visiteur;
+	@JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
 	private Date date_h;
 
 	@ManyToOne

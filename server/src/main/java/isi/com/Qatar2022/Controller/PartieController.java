@@ -76,7 +76,7 @@ public class PartieController {
 		partieService.deletePartie(id);
 		return "Delete Done" ;
 	}
-	
+	   
 	@PostMapping("/addpartietostade/{partie}/{stade}")
 	@PreAuthorize("hasRole('ADMIN')")
 	public CapaciteMatch addPartieToStade(@PathVariable("partie") Long partieid, @PathVariable("stade") Long stadeid)
@@ -133,6 +133,15 @@ public class PartieController {
 	{
 		List<CapaciteMatch> liste = capaciteMatch.findAll();
 		return liste ;
+	}
+	
+	@GetMapping("/capacitepartie/{id}")
+	@PreAuthorize("hasRole('ADMIN')")
+	public CapaciteMatch getCapacitePartie(@PathVariable("id") Long id)
+	{
+		Partie partie = partieService.findById(id);
+		CapaciteMatch capacite = capaciteMatch.findByPartie(partie);
+		return capacite ;
 	}
 	
 	@GetMapping("/alltypes")
