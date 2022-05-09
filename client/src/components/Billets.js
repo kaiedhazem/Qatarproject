@@ -108,10 +108,11 @@ const Billets = () => {
     }
 
 
-    const newBillet = () => {
+    /*const newBillet = () => {
         setBillet(initialBilletState);
         setSubmitted(false);
       };
+    */
 
    
 

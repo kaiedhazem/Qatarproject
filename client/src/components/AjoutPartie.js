@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import http from "../http-common";
 
 import authHeader from "../services/auth-header";
-import { AiOutlineEdit} from 'react-icons/ai';
+import { AiOutlineEdit,AiFillPushpin} from 'react-icons/ai';
 
 
 
@@ -16,48 +16,105 @@ const AjoutPartie = () => {
     tour: "",
     eq_local:"",
     eq_visiteur:"",
-    date:""
-    
+    date_h:""
   };
+  
 
-
-
+  const [dataApiStade , setDataApiStade] = useState([])
+  const [stade , setStade] = useState()
+  const [reponseData , setResponseData] = useState()
+  const [isStadeSubmit , setIsStadeSubmit] = useState(false) 
   const [partie, setPartie] = useState(initialPartieState);
   const [submitted, setSubmitted] = useState(false);
 
 
-  const handleInputChange = event => {
+  const getDataStade = () => {
+        
+    http.get('/parties/allstades', authHeader())
 
-    const { name, value } = event.target;
+        .then((response)=>{
+             setDataApiStade(response.data)
+        });
+    
+  };
 
-    console.log(partie);
+  useEffect(() => {
 
-    setPartie({ ...partie, [name]: value });
+      getDataStade();
+  
+  }, []);
+
+  const handleChangeStade = event => {
 
 
+    let { name, value } = event.target;
 
-
+    setStade(value)
 
   };
+
+
+  
+
+  const handleInputChange = event => {
+
+    let { name, value } = event.target;
+ 
+    setPartie({ ...partie, [name]: value });
+
+  };
+
+
+  const submitParties = (finalData) =>{
+    http.post('/parties/addpartie', finalData , authHeader()).then((response)=>{
+     
+      setResponseData(response.data.id)
+      setPartie(initialPartieState)
+  })
+  }
+
+  
+  const submitStade = () =>{
+    
+    http.post(`/parties/addpartietostade/${reponseData}/${stade}`, '' , authHeader()).then((response)=>{
+     
+      setIsStadeSubmit(true)
+
+      setTimeout(() => {
+
+      setSubmitted(false)
+      setIsStadeSubmit(false)
+        
+      }, 5000);
+     })
+  }
 
   const savePartie = () => {
 
-    http.post('/parties/addpartie', partie , authHeader()).then((response)=>{
-        console.log("repsonse data" , response );
-        setPartie(initialPartieState)
-        setSubmitted(true);
-    })
+   let value = partie.date_h.replace("T" , " ") + ":00"
+   const finalData = {...partie , ['date_h']: value }
+
+ 
+   submitParties(finalData)
+   setSubmitted(true);
+   
+
+  
   };
 
+  /*
   const newPartie = () => {
     setPartie(initialPartieState);
     setSubmitted(false);
   };
+  */
+ 
 
   return (
 
    
     <div className="submit-form">
+    
 
       <div className="container" >
         <header className="jumbotron" style={{backgroundColor: "#ffebd8"}}>
@@ -70,9 +127,49 @@ const AjoutPartie = () => {
         
             <div className="card">
             <div className="alert alert-success" role="alert">
-                <h5>Partie ajouté avec succès !</h5>
+                <h5>Partie ajouté !</h5>
             </div>
+
+            {isStadeSubmit && 
+              <div className="alert alert-success" role="alert">
+                   <h5>Partie affectée au stade !</h5>
+              </div>
+
+            }
+            <h4><AiFillPushpin /> Affectation partie au stade</h4><br></br>
+
+          <div className="form-group row">
+          
+          
+
+            <label  className="col-sm-4 col-form-label" style={{fontWeight:"bold"}}>Stade</label>
+            <div className="col-sm-8">
+
+            <select className="form-control" name="stade" onChange={handleChangeStade} >
+                
+            <option defaultValue hidden>{'choisir stade'} </option>
+            {       dataApiStade.map((option , key) => (
+
+                        <option key={key} value={option.id} name="stade">{option.nom}</option>
+                    ))
+            }
+            </select>
+
+            
+
+          
+
+
             </div>
+           
+          </div>
+         <button onClick={submitStade} className="btn btn-primary btn-lg btn-block">
+            Affecter
+          </button>
+
+            </div>
+
+           
           
           
         </div>
@@ -81,7 +178,7 @@ const AjoutPartie = () => {
         
         <div>
           <div className="form-group">
-            <label htmlFor="title">Référence</label>
+            <label htmlFor="title" style={{fontWeight:"bold"}}>Référence</label>
             <input
               type="text"
               className="form-control"
@@ -94,7 +191,7 @@ const AjoutPartie = () => {
           </div>
 
           <div className="form-group">
-            <label htmlFor="title">Tour</label>
+            <label htmlFor="title" style={{fontWeight:"bold"}}>Tour</label>
             <input
               type="text"
               className="form-control"
@@ -106,7 +203,7 @@ const AjoutPartie = () => {
             />
           </div>
           <div className="form-group">
-            <label htmlFor="title">Equipe locale</label>
+            <label htmlFor="title" style={{fontWeight:"bold"}}>Equipe locale</label>
             <input
               type="text"
               className="form-control"
@@ -119,7 +216,7 @@ const AjoutPartie = () => {
           </div>
 
           <div className="form-group">
-          <label htmlFor="title">Equipe visiteur</label>
+          <label htmlFor="title" style={{fontWeight:"bold"}}>Equipe visiteur</label>
           <input
             type="text"
             className="form-control"
@@ -131,17 +228,19 @@ const AjoutPartie = () => {
           />
          </div>
 
+     
+
          <div className="form-group">
     
-         <label htmlFor="title">Date & Heures</label>
+         <label htmlFor="title" style={{fontWeight:"bold"}}>Date et Heures </label>
          <input
            type="datetime-local"
            className="form-control"
-           id="date"
+           id="date_h"
            required
            value={partie.date}
            onChange={handleInputChange}
-           name="date"
+           name="date_h"
          />
         </div>
 
@@ -150,7 +249,7 @@ const AjoutPartie = () => {
           
 
           <button onClick={savePartie} className="btn btn-primary btn-lg btn-block">
-            Ajouter
+            Ajouter 
           </button>
           <br></br>
         

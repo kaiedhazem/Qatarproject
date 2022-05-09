@@ -12,8 +12,8 @@ const Profile = () => {
         </h3>
       </header>
 
-      <div class="card">
-        <div class="card-body">
+      <div className="card">
+        <div className="card-body">
 
       <h5>
         <strong>Email :</strong> {currentUser.email}
