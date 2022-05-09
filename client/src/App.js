@@ -5,7 +5,7 @@ import "./App.css";
 import { AiOutlineUnlock,AiOutlineUser,
   AiOutlineHome,AiOutlineTrophy,
   AiOutlineDribbble,AiOutlineCreditCard,
-  AiOutlineEuroCircle } from 'react-icons/ai';
+  AiOutlineEuroCircle,AiOutlineBars } from 'react-icons/ai';
 
 
 import AuthService from "./services/auth.service";
@@ -18,6 +18,7 @@ import BoardUser from "./components/BoardUser";
 import BoardAdmin from "./components/BoardAdmin";
 import AjoutPartie from "./components/AjoutPartie";
 import Billets from "./components/Billets";
+import AffichageBillets from "./components/AffichageBillets";
 
 import EventBus from "./common/EventBus";
 
@@ -82,6 +83,14 @@ const App = () => {
             </li>
           )}
 
+          {showModeratorBoard && (
+            <li className="nav-item nav-link active">
+              <Link to={"/affichagebillets"} className="nav-link">
+                <AiOutlineBars /> Billets
+              </Link>
+            </li>
+          )}
+
           
 
           {showAdminBoard && (
@@ -141,6 +150,8 @@ const App = () => {
 
 
           <Route path="/billets" element={<Billets/>} />
+
+          <Route path="/affichagebillets" element={<AffichageBillets/>} />
 
         </Routes>
       </div>

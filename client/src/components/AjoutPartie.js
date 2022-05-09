@@ -42,10 +42,10 @@ const AjoutPartie = () => {
 
   const savePartie = () => {
 
-    console.log("auuu" , authHeader())
     http.post('/parties/addpartie', partie , authHeader()).then((response)=>{
         console.log("repsonse data" , response );
-    setPartie(initialPartieState)
+        setPartie(initialPartieState)
+        setSubmitted(true);
     })
   };
 
@@ -66,10 +66,15 @@ const AjoutPartie = () => {
       </div>
       {submitted ? (
         <div>
-          <h4>You submitted successfully!</h4>
-          <button className="btn btn-success" onClick={newPartie}>
-            Add
-          </button>
+             
+        
+            <div className="card">
+            <div className="alert alert-success" role="alert">
+                <h5>Partie ajouté avec succès !</h5>
+            </div>
+            </div>
+          
+          
         </div>
       ) : (
 
