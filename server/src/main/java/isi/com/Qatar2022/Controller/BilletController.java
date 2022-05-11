@@ -24,8 +24,9 @@ import isi.com.Qatar2022.Repository.TypeChaiseRepository;
 import isi.com.Qatar2022.Services.PartieService;
 
 @RestController
-@CrossOrigin(origins="http://localhost:4200")
+@CrossOrigin(origins = "http://localhost:3000")
 @RequestMapping("/api/billets")
+
 public class BilletController {
 	
 	@Autowired
@@ -50,7 +51,7 @@ public class BilletController {
 	
 	@PostMapping("/add")
 	@PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
-	public MessageResponse addBillet(@RequestBody Billet billet)
+	public double addBillet(@RequestBody Billet billet)
 	{
 		double tarif= typeRepo.getById((long) 1).getTarif();
 		int nb_place = billet.getNb_place(); 
@@ -101,7 +102,7 @@ public class BilletController {
 		billetRepo.save(billet);
 		capaciteMatchRepo.save(capacite);
 		
-		return new MessageResponse("Billet successfuly created");
+		return billet.getMontant();
 	}
 	
 	

@@ -36,9 +36,12 @@ public class Partie implements Serializable {
 	@JoinColumn(name = "stadeId", nullable = true)
 	Stade stade;
 	
+	
 	@OneToMany(mappedBy = "partie")
+	
 	private List<Billet> billets;
 	@OneToOne(mappedBy = "partie", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
+	
     private CapaciteMatch capacite;
 	
 	

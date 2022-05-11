@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import isi.com.Qatar2022.Entities.CapaciteMatch;
@@ -27,7 +28,7 @@ import isi.com.Qatar2022.Services.IPartieService;
 import isi.com.Qatar2022.Services.IUserService;
 
 @RestController
-@CrossOrigin(origins="http://localhost:4200")
+@CrossOrigin(origins = "http://localhost:3000")
 @RequestMapping("/api/parties")
 public class PartieController {
 
@@ -54,6 +55,19 @@ public class PartieController {
 		return liste;
 	}
 	
+
+	
+	
+	@GetMapping("/capacitepartie/{id}")
+	@PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
+	public CapaciteMatch getCapacitePartie(@PathVariable("id") Long id)
+	{
+		Partie partie = partieService.findById(id);
+		CapaciteMatch capacite = capaciteMatch.findByPartie(partie);
+		return capacite ;
+	}
+	
+	
 	@PostMapping("/addpartie")
 	@PreAuthorize("hasRole('ADMIN')")
 	public Partie addPartie(@RequestBody Partie partie)
@@ -76,7 +90,7 @@ public class PartieController {
 		partieService.deletePartie(id);
 		return "Delete Done" ;
 	}
-	   
+	
 	@PostMapping("/addpartietostade/{partie}/{stade}")
 	@PreAuthorize("hasRole('ADMIN')")
 	public CapaciteMatch addPartieToStade(@PathVariable("partie") Long partieid, @PathVariable("stade") Long stadeid)
@@ -135,17 +149,9 @@ public class PartieController {
 		return liste ;
 	}
 	
-	@GetMapping("/capacitepartie/{id}")
-	@PreAuthorize("hasRole('ADMIN')")
-	public CapaciteMatch getCapacitePartie(@PathVariable("id") Long id)
-	{
-		Partie partie = partieService.findById(id);
-		CapaciteMatch capacite = capaciteMatch.findByPartie(partie);
-		return capacite ;
-	}
 	
 	@GetMapping("/alltypes")
-	@PreAuthorize("hasRole('ADMIN')")
+	@PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
 	public List<TypeChaise> getAllType()
 	{
 		List<TypeChaise> liste = typeChaiseRepo.findAll();

@@ -1,4 +1,4 @@
-package isi.com.Qatar2022.payment;
+package isi.com.Qatar2022.Payment;
 
 import com.stripe.Stripe;
 import com.stripe.model.Charge;
@@ -12,7 +12,7 @@ import java.util.Map;
 public class StripeClient {
     @Autowired
     StripeClient() {
-        Stripe.apiKey = "sk_test_51Km3BMB4R0MvAOwFMNHHBYPqYKqORrr2uwgs5wJxmV3ges78lzvw3EEm7CsYW283wSJejcVnAjo0uku28VVEvj97002FyvHBzZ";
+        Stripe.apiKey = "sk_test_51KoDUhFslqXZA62tiMe35XTyL2dOTK00g9y6soKLcutRpsLmz2yBaYRUAf3FHfAufN9vJnnsN8OhShTZ1lqrDhaK00j1uiXe1k";
     }
     public Customer createCustomer(String token, String email) throws Exception {
         Map<String, Object> customerParams = new HashMap<String, Object>();
@@ -28,6 +28,7 @@ public class StripeClient {
         chargeParams.put("amount", (int)(amount * 100));
         chargeParams.put("currency", "USD");
         chargeParams.put("source", token);
+       
         Charge charge = Charge.create(chargeParams);
         return charge;
     }

@@ -1,4 +1,4 @@
-package isi.com.Qatar2022.payment;
+package isi.com.Qatar2022.Payment;
 
 import com.stripe.model.Charge;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,8 +16,9 @@ public class PaymentGatewayController {
     PaymentGatewayController(StripeClient stripeClient) {
         this.stripeClient = stripeClient;
     }
+    
     @PostMapping("/charge")
-    @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
+    
     public Charge chargeCard(@RequestHeader(value="token") String token, @RequestHeader(value="amount") Double amount) throws Exception {
         return this.stripeClient.chargeNewCard(token, amount);
     }
