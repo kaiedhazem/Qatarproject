@@ -26,7 +26,7 @@ const Billets = () => {
             headers: {      
               Authorization: `Bearer ${user.accessToken}`,
               token: token.id,
-              amount: 500,
+              amount: billet.montant,
             },
           })
           .then(() => {
@@ -51,6 +51,9 @@ const Billets = () => {
         repas_inclus:0,
         nb_place: "", 
         spectateur:{id: user.id},
+        montant: 0
+        
+
         
     };
 
@@ -83,6 +86,7 @@ const Billets = () => {
 
     
         setBillet({ ...billet, [name]: value });
+        
     
       };
 
@@ -95,15 +99,19 @@ const Billets = () => {
         e.preventDefault();
 
 
-        http.post('/billets/add', billet , authHeader()).then((response)=>{
+        http.post('/billets/add', billet , authHeader()).
+        then((response)=>{
 
-            console.log("repsonse data" , response );
+            console.log("billet after aaaaaaaaaaaaaaaad" , response );
 
             setBillet(initialBilletState)
-
+            setBillet({ ...billet, montant: response.data });
             setSubmitted(true);
+
+
         })
-       
+
+    
         //window.location.reload();
     }
 
@@ -208,7 +216,7 @@ const Billets = () => {
                 <option defaultValue hidden>{'choisir référence partie'} </option>
                 {       dataApiPartie.map((option , key) => (
 
-                            <option key={key} value={option.id}>{option.ref}</option>
+                            <option key={key} value={option.id}>{option.tour} : {option.eq_local} {option.eq_visiteur}</option>
                         ))
                 }
                 </select>
