@@ -3,8 +3,9 @@ import { useNavigate } from 'react-router-dom';
 import Form from "react-validation/build/form";
 import Input from "react-validation/build/input";
 import CheckButton from "react-validation/build/button";
-
+import img from '../assets/worl.jpg';
 import AuthService from "../services/auth.service";
+
 
 const required = (value) => {
   if (!value) {
@@ -72,14 +73,14 @@ const Login = () => {
     <div className="col-md-12">
       <div className="card card-container">
         <img
-          src="../w.JPG"
-          alt="profile-img"
+          src={img} 
+          alt=""
           className="profile-img-card"
         />
 
         <Form onSubmit={handleLogin} ref={form}>
           <div className="form-group">
-            <label htmlFor="username">Username</label>
+            <label htmlFor="username">Nom d'utilisateur</label>
             <Input
               type="text"
               className="form-control"
@@ -91,7 +92,7 @@ const Login = () => {
           </div>
 
           <div className="form-group">
-            <label htmlFor="password">Password</label>
+            <label htmlFor="password">Mot de passe</label>
             <Input
               type="password"
               className="form-control"
@@ -103,11 +104,11 @@ const Login = () => {
           </div>
 
           <div className="form-group">
-            <button className="btn btn-primary btn-block" disabled={loading}>
+            <button className="btn btn-warning btn-block" disabled={loading}>
               {loading && (
                 <span className="spinner-border spinner-border-sm"></span>
               )}
-              <span>Login</span>
+              <span>Connexion</span>
             </button>
           </div>
 

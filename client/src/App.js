@@ -115,7 +115,7 @@ const App = () => {
 
            
               <a href="/login" className="nav-item nav-link active" onClick={logOut}>
-                <AiOutlineUnlock /> Logout
+                <AiOutlineUnlock /> Déconnexion
               </a>
             </li>
           </div>
@@ -123,13 +123,13 @@ const App = () => {
           <div className="navbar-nav ml-auto">
             <li className="nav-item nav-link active">
               <Link to={"/login"} className="nav-link">
-                Login
+                Connexion
               </Link>
             </li>
 
             <li className="nav-item nav-link active">
               <Link to={"/register"} className="nav-link">
-                Sign Up
+                Créer un compte
               </Link>
             </li>
           </div>
